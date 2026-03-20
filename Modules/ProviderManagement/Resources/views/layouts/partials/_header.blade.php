@@ -1,4 +1,4 @@
-<header class="header fixed-top">
+<header class="header fixed-top glass-header">
     <div class="container-fluid">
         <div class="d-flex gap-3 align-items-center justify-content-between">
             <div class="">
@@ -9,6 +9,13 @@
                 </div>
             </div>
             <div class="d-flex align-items-center gap-4 flex-grow-1">
+                <div class="nav-item max-sm-m-0">
+                    <button type="button" id="modalOpener" class="title-color bg--secondary border-0 rounded align-items-center py-2 px-2 px-md-3 d-flex gap-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <span class="material-symbols-outlined">search</span>
+                        <span class="d-none d-md-block">{{translate('Search')}}</span>
+                        <span class="bg-card text-muted border rounded-3 p-1 fs-12 fw-bold lh-1 ms-1 ctrlplusk d-none d-md-block">Ctrl+K</span>
+                    </button>
+                </div>
                 @if($trialDuration == 0 && $packageSubscriber != null && $isPackageEnded > 0 && $isPackageEnded < $deadlineWarning)
                 <div class="cancellantion-note cancellantion-note__header border-0 flex-grow-1 d-flex justify-content-between gap-2 align-items-center text-danger rounded">
                         <div class="media gap-2 align-items-center w-0 flex-grow-1">
@@ -22,13 +29,6 @@
                 @endif
                 <div class="header-right ms--auto">
                     <ul class="nav justify-content-end align-items-center gap-3 gap-md-4">
-                        <li class="nav-item max-sm-m-0">
-                            <button type="button" id="modalOpener" class="title-color bg--secondary border-0 rounded align-items-center py-2 px-2 px-md-3 d-flex gap-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                <span class="material-symbols-outlined">search</span>
-                                <span class="d-none d-md-block">{{translate('Search')}}</span>
-                                <span class="bg-card text-muted border rounded-3 p-1 fs-12 fw-bold lh-1 ms-1 ctrlplusk d-none d-md-block">Ctrl+K</span>
-                            </button>
-                        </li>
                         <li class="nav-item max-sm-m-0">
                             <div class="hs-unfold">
                                 <div>

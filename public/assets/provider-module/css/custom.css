@@ -1,0 +1,64 @@
+
+/* Integrated Transparent Header (Soft UI style at scroll 0) */
+.glass-header {
+    background-color: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    padding: 15px 30px !important;
+    transition: all 0.3s ease-in-out !important;
+    
+    /* Desktop default (aside open) */
+    left: 270px !important;
+    width: calc(100% - 270px) !important;
+}
+
+/* Handle folded sidebar */
+body.aside-folded .glass-header {
+    left: 70px !important;
+    width: calc(100% - 70px) !important;
+}
+
+/* Style Search Box (Input & Modal Opener) to match Soft UI */
+.glass-header .search-form input,
+.glass-header #modalOpener {
+    background-color: #ffffff !important;
+    border: 1px solid #d2d6da !important;
+    border-radius: 8px !important;
+    padding-left: 45px !important; /* Space for icon if input */
+    color: #495057 !important;
+}
+
+/* Fix Search Icon position in styled input */
+.glass-header .search-form .material-icons {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    color: #67748e;
+}
+
+@media only screen and (max-width: 1199px) {
+    .glass-header {
+        left: 0 !important;
+        width: 100% !important;
+        background-color: #f8f9fa !important; /* Slight background for mobile readability */
+        padding: 10px 15px !important;
+    }
+}
+
+/* Sidebar (Aside) - Soft UI Style */
+.aside {
+    background-color: #f7f8f9 !important;
+    box-shadow: none !important;
+    border-right: none !important;
+}
+
+.aside .aside-header,
+.aside .aside-body {
+    background-color: #f7f8f9 !important;
+}
