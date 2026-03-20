@@ -3175,7 +3175,7 @@ table.dataTable {
 
 .aside-body .nav li {
     font-size: 0.875rem;
-    padding: 0.875rem 0;
+    padding: 2px 0;
     display: block;
 }
 
@@ -3184,11 +3184,54 @@ table.dataTable {
     font-weight: 700;
     text-transform: uppercase;
     position: relative;
+    padding: 1.5rem 0.5rem 0.5rem !important;
+    color: #67748e;
+    opacity: 0.6;
+    letter-spacing: 0.05rem;
 }
 
 .aside-body .nav li > a {
     display: flex;
+    align-items: center;
     gap: 8px;
+    padding: 0.675rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    color: #67748e;
+}
+
+.aside-body .nav li > a:hover {
+    background-color: var(--bg-color);
+    color: #344767;
+}
+
+.aside-body .nav li > a.active-menu {
+    background-color: #fff;
+    box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05);
+    color: #344767;
+    font-weight: 600;
+}
+
+.nav-icon-box {
+    width: 32px;
+    height: 32px;
+    background: #fff;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.active-menu .nav-icon-box {
+    background: linear-gradient(310deg, #17ad37 0%, #98ec2d 100%);
+    color: #fff !important;
+}
+
+.active-menu .nav-icon-box .material-icons {
+    color: #fff !important;
 }
 
 .aside-body .nav li .link-title {
@@ -3327,11 +3370,16 @@ body.aside-folded .aside-body .nav-category:before {
     content: "";
     width: 0.3125rem;
     height: 0.125rem;
-    inset-inline-start: 0;
+    inset-inline-start: 50% !important;
     inset-block-start: 50%;
-    transform: translateY(-50%);
+    transform: translate(-50%, -50%) !important;
     background-color: var(--bs-dark);
     visibility: visible;
+}
+
+/* Sidebar Folded Hide Submenu Arrows */
+body.aside-folded:not(.open-aside-folded) .aside-body li.has-sub-item:after {
+    display: none !important;
 }
 
 body.aside-folded .aside-body li .material-icons {
@@ -3416,6 +3464,39 @@ body.aside-folded.open-aside-folded .aside .aside-body li a span {
 body.aside-folded.open-aside-folded .aside .aside-body li.active i,
 body.aside-folded.open-aside-folded .aside .aside-body li:hover i {
     color: #8280fd;
+}
+
+/* Sidebar Folded Fixes */
+body.aside-folded:not(.open-aside-folded) .aside-body {
+    padding: 0 !important;
+}
+
+body.aside-folded:not(.open-aside-folded) .aside-body {
+    .nav {
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        li,
+        li a {
+            width: 100% !important;
+            min-width: unset !important;
+            display: flex !important;
+            justify-content: center !important;
+            padding: 0.675rem 0 !important;
+            margin: 0 !important;
+        }
+        .link-title {
+            display: none !important;
+        }
+    }
+}
+
+body.aside-folded:not(.open-aside-folded) .nav-icon-box {
+    margin: 0 !important;
+}
+
+[dir="rtl"] body.aside-folded:not(.open-aside-folded) .nav-icon-box {
+    margin: 0 !important;
 }
 
 /* ************************
@@ -3750,6 +3831,18 @@ body.aside-folded.open-aside-folded .aside .aside-body li:hover i {
         0rem 0.375rem 0.75rem -0.1875rem rgba(255, 255, 255, 0.05);
 }
 
+[data-bs-theme="dark"] .business-summary {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    box-shadow: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: var(--absolute-white) !important;
+
+    h2,
+    h3 {
+        color: var(--absolute-white) !important;
+    }
+}
+
 [data-bs-theme="dark"] .table {
     --bs-table-color: var(--absolute-white);
 }
@@ -3764,6 +3857,22 @@ body.aside-folded.open-aside-folded .aside .aside-body li:hover i {
     .select2-selection--multiple
     .select2-selection__choice {
     background-color: #838383 !important;
+}
+
+/* Sidebar Dark Mode Overrides */
+[data-bs-theme="dark"] .aside-body .nav li > a.active-menu {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: var(--absolute-white) !important;
+}
+
+[data-bs-theme="dark"] .nav-icon-box {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: var(--absolute-white) !important;
+}
+
+[data-bs-theme="dark"] .aside-body .nav li > a:hover {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: var(--absolute-white) !important;
 }
 
 [data-bs-theme="dark"]

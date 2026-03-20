@@ -111,7 +111,7 @@
                             <div class="user mt-n1">
                                 <a href="#" class="header-icon user-icon" data-bs-toggle="dropdown">
                                     <div>
-                                        <img width="30" height="30" src="{{auth()->user()->provider->logo_full_path}}"
+                                        <img width="30" height="30" src="{{ str_replace('app/public', '', auth()->user()->provider->logo_full_path) }}"
                                             class="rounded-circle aspect-square object-fit-cover" alt="{{ translate('logo') }}">
                                     </div>
                                 </a>
@@ -119,7 +119,7 @@
                                     <a href="{{route('provider.profile_update')}}"
                                        class="dropdown-item-text media gap-3 align-items-center">
                                         <div class="avatar">
-                                            <img class="avatar-img rounded-circle aspect-square object-fit-cover" width="50" height="50" src="{{auth()->user()->provider->logo_full_path}}"
+                                            <img class="avatar-img rounded-circle aspect-square object-fit-cover" width="50" height="50" src="{{ str_replace('app/public', '', auth()->user()->provider->logo_full_path) }}"
                                                  alt="{{ translate('logo') }}">
                                         </div>
                                         <div class="media-body ">

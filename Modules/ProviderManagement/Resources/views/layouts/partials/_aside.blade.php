@@ -26,9 +26,12 @@ $logo = getBusinessSettingsImageFullPath(key: 'business_logo', settingType: 'bus
 <aside class="aside">
     <div class="aside-header">
         <a href="{{route('provider.dashboard')}}" class="logo d-flex gap-2">
-            <img src="{{ $provider->logo_full_path }}"
+            <img src="{{ str_replace('app/public', '', $provider->logo_full_path) }}"
                  style="max-height: 50px" alt="{{translate('image')}}"
                  class="main-logo">
+            <img src="{{ str_replace('app/public', '', $provider->logo_full_path) }}"
+                 style="max-height: 30px" alt="{{translate('image')}}"
+                 class="mobile-logo">
         </a>
 
         <button class="toggle-menu-button aside-toggle border-0 bg-transparent p-0 dark-color">
@@ -53,7 +56,9 @@ $logo = getBusinessSettingsImageFullPath(key: 'business_logo', settingType: 'bus
             <li>
                 <a href="{{route('provider.dashboard')}}"
                    class="{{request()->is('provider/dashboard')?'active-menu':''}}">
-                    <span class="material-icons" title="{{translate('dashboard')}}">dashboard</span>
+                    <div class="nav-icon-box">
+                        <span class="material-icons" title="{{translate('dashboard')}}">dashboard</span>
+                    </div>
                     <span class="link-title">{{translate('dashboard')}}</span>
                 </a>
             </li>
@@ -63,7 +68,9 @@ $logo = getBusinessSettingsImageFullPath(key: 'business_logo', settingType: 'bus
             </li>
             <li class="has-sub-item {{request()->is('provider/booking/*') && !request()->is('provider/booking/calendar*') ?'sub-menu-opened':''}}">
                 <a href="#" class="{{request()->is('provider/booking/*') && !request()->is('provider/booking/calendar*') ?'active-menu':''}}">
-                    <span class="material-icons" title="{{translate('bookings')}}">shopping_cart</span>
+                    <div class="nav-icon-box">
+                        <span class="material-icons" title="{{translate('bookings')}}">shopping_cart</span>
+                    </div>
                     <span class="link-title">{{translate('bookings')}}</span>
                 </a>
 
@@ -148,8 +155,10 @@ $logo = getBusinessSettingsImageFullPath(key: 'business_logo', settingType: 'bus
             </li>
             <li>
                 <a href="{{ route('provider.booking.calendar.view') }}" class="{{ request()->is('provider/booking/calendar*') ?'active-menu':'' }}">
-                    <span class="material-icons" title="{{translate('chatting')}}">calendar_month</span>
-                    <span class="link-title">{{translate('Calendar View')}}
+                    <div class="nav-icon-box">
+                        <span class="material-icons" title="{{translate('chatting')}}">calendar_month</span>
+                    </div>
+                    <span class="link-title">{{translate('Calendar View')}}</span>
                 </a>
             </li>
 
@@ -157,7 +166,9 @@ $logo = getBusinessSettingsImageFullPath(key: 'business_logo', settingType: 'bus
             <li>
                 <a href="{{route('provider.chat.index', ['user_type' => 'super_admin'])}}"
                    class="{{request()->is('provider/chat/index*') ?'active-menu':''}}">
-                    <span class="material-icons" title="{{translate('chatting')}}">message</span>
+                    <div class="nav-icon-box">
+                        <span class="material-icons" title="{{translate('chatting')}}">message</span>
+                    </div>
                     <span class="link-title">{{translate('Chatting')}}</span>
                 </a>
             </li>
@@ -167,14 +178,18 @@ $logo = getBusinessSettingsImageFullPath(key: 'business_logo', settingType: 'bus
             <li>
                 <a href="{{route('provider.service.available')}}"
                    class="{{request()->is('provider/service/available*') || request()->is('provider/service/detail*')?'active-menu':''}}">
-                    <span class="material-icons" title="{{translate('available_services')}}">home_repair_service</span>
+                    <div class="nav-icon-box">
+                        <span class="material-icons" title="{{translate('available_services')}}">home_repair_service</span>
+                    </div>
                     <span class="link-title">{{translate('available_services')}}</span>
                 </a>
             </li>
             <li>
                 <a href="{{route('provider.sub_category.subscribed', ['status'=>'all'])}}"
                    class="{{request()->is('provider/sub-category/subscribed*')?'active-menu':''}}">
-                    <span class="material-icons" title="{{translate('my_Subscriptions')}}">subscriptions</span>
+                    <div class="nav-icon-box">
+                        <span class="material-icons" title="{{translate('my_Subscriptions')}}">subscriptions</span>
+                    </div>
                     <span class="link-title">{{translate('my_subscriptions')}}</span>
                 </a>
             </li>
@@ -182,7 +197,9 @@ $logo = getBusinessSettingsImageFullPath(key: 'business_logo', settingType: 'bus
             <li>
                 <a href="{{route('provider.service.request-list')}}"
                    class="{{request()->is('provider/service/request-list*') || request()->is('provider/service/make-request*')?'active-menu':''}}">
-                    <span class="material-icons" title="{{translate('Request for Service')}}">list</span>
+                    <div class="nav-icon-box">
+                        <span class="material-icons" title="{{translate('Request for Service')}}">list</span>
+                    </div>
                     <span class="link-title">{{translate('Service Requests')}}</span>
                 </a>
             </li>
@@ -191,7 +208,9 @@ $logo = getBusinessSettingsImageFullPath(key: 'business_logo', settingType: 'bus
 
             <li class="has-sub-item {{request()->is('provider/advertisements/*')?'sub-menu-opened':''}}">
                 <a href="#" class="{{request()->is('provider/advertisements/*')?'active-menu':''}}">
-                    <span class="material-icons" title="{{translate('advertisements')}}">campaign</span>
+                    <div class="nav-icon-box">
+                        <span class="material-icons" title="{{translate('advertisements')}}">campaign</span>
+                    </div>
                     <span class="link-title">{{translate('advertisements')}}</span>
                 </a>
                 <ul class="nav sub-menu">
@@ -215,7 +234,9 @@ $logo = getBusinessSettingsImageFullPath(key: 'business_logo', settingType: 'bus
 
             <li class="has-sub-item {{request()->is('provider/serviceman/*')?'sub-menu-opened':''}}">
                 <a href="#" class="{{request()->is('provider/serviceman/*')?'active-menu':''}}">
-                    <span class="material-icons" title="{{translate('Service_Man')}}">man</span>
+                    <div class="nav-icon-box">
+                        <span class="material-icons" title="{{translate('Service_Man')}}">man</span>
+                    </div>
                     <span class="link-title">{{translate('Service_Man')}}</span>
                 </a>
                 <ul class="nav sub-menu">
@@ -238,14 +259,18 @@ $logo = getBusinessSettingsImageFullPath(key: 'business_logo', settingType: 'bus
             <li>
                 <a href="{{route('provider.account_info', ['page_type'=>'overview'])}}"
                    class="{{request()->is('provider/account-info*') || request()->is('provider/withdraw') ?'active-menu':''}}">
-                    <span class="material-icons" title="{{translate('Account_Information')}}">account_circle</span>
+                    <div class="nav-icon-box">
+                        <span class="material-icons" title="{{translate('Account_Information')}}">account_circle</span>
+                    </div>
                     <span class="link-title">{{translate('Account_Information')}}</span>
                 </a>
             </li>
             <li>
                 <a href="{{route('provider.bank_info')}}"
                    class="{{request()->is('provider/bank-info*')?'active-menu':''}}">
-                    <span class="material-icons" title="{{translate('bank_information')}}">account_balance</span>
+                    <div class="nav-icon-box">
+                        <span class="material-icons" title="{{translate('bank_information')}}">account_balance</span>
+                    </div>
                     <span class="link-title">{{translate('bank_information')}}</span>
                 </a>
             </li>
@@ -255,7 +280,9 @@ $logo = getBusinessSettingsImageFullPath(key: 'business_logo', settingType: 'bus
             </li>
             <li class="has-sub-item {{request()->is('provider/report/*')?'sub-menu-opened':''}}">
                 <a href="#" class="{{request()->is('provider/report/*')?'active-menu':''}}">
-                    <span class="material-icons" title="Customers">event_note</span>
+                    <div class="nav-icon-box">
+                        <span class="material-icons" title="Customers">event_note</span>
+                    </div>
                     <span class="link-title">{{translate('Reports')}}</span>
                 </a>
                 <ul class="nav sub-menu">
@@ -284,28 +311,36 @@ $logo = getBusinessSettingsImageFullPath(key: 'business_logo', settingType: 'bus
             <li>
                 <a href="{{route('provider.business-settings.get-business-information')}}"
                    class="{{request()->is('provider/business-settings/get-business-information')?'active-menu':''}}">
-                    <span class="material-icons" title="Business Settings">business_center</span>
+                    <div class="nav-icon-box">
+                        <span class="material-icons" title="Business Settings">business_center</span>
+                    </div>
                     <span class="link-title">{{translate('business_settings')}}</span>
                 </a>
             </li>
             <li>
                 <a href="{{route('provider.subscription-package.details')}}"
                    class="{{request()->is('provider/subscription-package/*')?'active-menu':''}}">
-                    <span class="material-symbols-outlined">tune</span>
+                    <div class="nav-icon-box">
+                        <span class="material-symbols-outlined">tune</span>
+                    </div>
                     <span class="link-title">{{translate('business_plan')}}</span>
                 </a>
             </li>
             <li>
                 <a href="{{route('provider.settings.payment-information.index')}}"
                    class="{{request()->is('provider/settings/payment-information/*')?'active-menu':''}}">
-                    <span class="material-symbols-outlined">payment</span>
+                    <div class="nav-icon-box">
+                        <span class="material-symbols-outlined">payment</span>
+                    </div>
                     <span class="link-title">{{translate('payment_information')}}</span>
                 </a>
             </li>
             <li>
                 <a href="{{route('provider.configuration.get-notification-setting', ['notification_type' => 'provider'])}}"
                    class="{{request()->is('provider/configuration/get-notification-setting')?'active-menu':''}}">
-                    <span class="material-icons" title="Subscription Management">campaign</span>
+                    <div class="nav-icon-box">
+                        <span class="material-icons" title="Subscription Management">campaign</span>
+                    </div>
                     <span class="link-title">{{translate('Notification Channel')}}</span>
                 </a>
             </li>

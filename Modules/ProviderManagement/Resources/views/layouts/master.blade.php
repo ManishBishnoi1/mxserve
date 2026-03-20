@@ -114,6 +114,7 @@ $serviceLocations = getProviderSettings(providerId: auth()->user()->provider->id
 
 <script src="{{asset('assets/provider-module')}}/js/sweet_alert.js"></script>
 <script src="{{asset('assets/provider-module')}}/js/toastr.js"></script>
+<script src="{{asset('assets/provider-module')}}/js/custom.js"></script>
 <script src="{{asset('assets/provider-module')}}/js/dev.js"></script>
 <script src="{{asset('assets/provider-module')}}/js/keyword-highlight.js"></script>
 <script src="{{asset('assets/admin-module/js/firebase.min.js')}}"></script>
