@@ -21,8 +21,294 @@
     <link rel="stylesheet"
           href="{{asset('assets/admin-module')}}/plugins/perfect-scrollbar/perfect-scrollbar.min.css"/>
 
-    <link rel="stylesheet" href="{{asset('assets/admin-module')}}/css/style.css"/>
-    <link rel="stylesheet" href="{{asset('assets/admin-module')}}/css/toastr.css">
+    <style>
+        :root {
+            --soft-ui-bg: #f8f9fa;
+            --soft-ui-primary: #28880A;
+            --soft-ui-primary-gradient: linear-gradient(310deg, #28880A, #58D68D);
+            --soft-ui-secondary: #8392ab;
+            --soft-ui-border-radius: 1rem;
+            --soft-ui-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --soft-ui-shadow-lg: 0 20px 27px 0 rgba(0, 0, 0, 0.05);
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.4);
+        }
+
+        body {
+            font-family: 'Public Sans', sans-serif;
+            background-color: var(--soft-ui-bg);
+            color: #344767;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .login-wrap {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+            background: #fff;
+        }
+
+        /* Decorative Background Elements */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--soft-ui-primary-gradient);
+            opacity: 0.1;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .circle-1 { width: 400px; height: 400px; top: -100px; left: -100px; animation-delay: 0s; }
+        .circle-2 { width: 300px; height: 300px; bottom: -50px; right: -50px; animation-delay: -5s; }
+        .circle-3 { width: 150px; height: 150px; top: 20%; right: 10%; animation-delay: -2s; opacity: 0.05; }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -20px) scale(1.1); }
+        }
+
+        /* Slanted Divider */
+        .login-left {
+            flex: 1.2;
+            position: relative;
+            background-image: url('{{asset('assets/provider-module')}}/img/media/login-bg.png');
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .login-left::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(310deg, rgba(40, 136, 10, 0.7), rgba(88, 214, 141, 0.7));
+        }
+
+        .login-left::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -100px;
+            width: 200px;
+            height: 100%;
+            background: #fff;
+            transform: skewX(-10deg);
+            z-index: 3;
+        }
+
+        .login-left .tf-box {
+            position: relative;
+            z-index: 4;
+            color: #fff;
+            text-align: center;
+            max-width: 550px;
+            padding: 3rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-logo {
+            max-width: 200px;
+            filter: brightness(0) invert(1);
+            margin-bottom: 2.5rem;
+        }
+
+        .login-left h2 {
+            font-weight: 800;
+            font-size: 2.75rem;
+            letter-spacing: -0.05rem;
+            line-height: 1.2;
+            color: #fff !important;
+        }
+
+        /* Login Form Section */
+        .login-right-wrap {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            position: relative;
+            z-index: 5;
+            background: transparent;
+        }
+
+        .login-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 1.5rem;
+            padding: 3.5rem;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: var(--soft-ui-shadow-lg);
+            animation: fadeInRight 1s ease-out;
+        }
+
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .login-right h2 {
+            font-weight: 800;
+            font-size: 2.25rem;
+            color: #344767;
+            letter-spacing: -0.025rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .login-right p {
+            color: var(--soft-ui-secondary);
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Form Elements */
+        .form-floating {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            border-radius: 0.75rem;
+            border: 1px solid #d2d6da;
+            padding: 1rem;
+            font-size: 0.875rem;
+            height: auto;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: #fff;
+        }
+
+        .form-control:focus {
+            border-color: #28880A;
+            box-shadow: 0 0 0 2px rgba(40, 136, 10, 0.15);
+            outline: none;
+            transform: translateY(-1px);
+        }
+
+        .form-floating label {
+            padding-left: 1.25rem;
+            color: #8392ab;
+        }
+
+        .material-icons {
+            color: #8392ab;
+            transition: all 0.2s;
+        }
+
+        .form-control:focus ~ .material-icons {
+            color: #28880A;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .btn--primary {
+            background: var(--soft-ui-primary-gradient);
+            border: none;
+            border-radius: 0.75rem;
+            color: #fff;
+            font-weight: 700;
+            padding: 1rem;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+            box-shadow: 0 4px 7px -1px rgba(0, 0, 0, 0.11), 0 2px 4px -1px rgba(0, 0, 0, 0.07);
+            transition: all 0.2s;
+            margin-top: 1rem;
+        }
+
+        .btn--primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+            filter: brightness(1.05);
+        }
+
+        .btn--primary:active {
+            transform: translateY(0);
+        }
+
+        /* Glassmorphism Badge */
+        .glass-badge {
+            background: rgba(233, 236, 239, 0.6);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: #344767;
+            font-weight: 700;
+            border-radius: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+        }
+
+        /* Demo Box Glassmorphism */
+        .login-footer {
+            background: rgba(248, 249, 250, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 1rem;
+            padding: 1.25rem;
+            margin-top: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .login-copy {
+            background: #fff;
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--soft-ui-shadow);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .login-copy:hover {
+            transform: scale(1.1);
+            color: #28880A;
+        }
+
+        @media (max-width: 1199px) {
+            .login-left { flex: 1; }
+            .login-right-wrap { padding: 2rem; }
+        }
+
+        @media (max-width: 991px) {
+            body { overflow-y: auto; }
+            .login-left { display: none; }
+            .login-right-wrap { flex: 1; padding: 1.5rem; height: 100vh; }
+            .login-card { padding: 2rem; box-shadow: none; border: none; background: transparent; }
+            .login-left::after { display: none; }
+        }
+
+        .login-left .c1 { color: #fff !important; background: rgba(255,255,255,0.2); padding: 0 0.5rem; border-radius: 0.5rem; }
+        .c1 { color: #28880A !important; }
+        .fw-bold { font-weight: 700 !important; }
+        .text-secondary { color: #67748e !important; }
+    </style>
 </head>
 
 <body>
@@ -31,59 +317,58 @@
 $logo = getBusinessSettingsImageFullPath(key: 'business_logo', settingType: 'business_information', path: 'business/',  defaultPath : 'assets/admin-module/img/placeholder.png');
 ?>
 
-<div>
-    <form action="{{route('admin.auth.login')}}" enctype="multipart/form-data" method="POST"
-            id="login-form">
-        @csrf
-        <div class="login-wrap">
-            <div class="login-left d-flex justify-content-center align-items-center bg-center" data-bg-img="{{asset('assets/provider-module')}}/img/media/login-bg.png">
-                <div class="tf-box d-flex flex-column gap-3 align-items-center justify-content-center p-5 mx-5 h-75">
-                    <img class="login-logo mb-2"
-                        src="{{ $logo }}"
-                        alt="{{ translate('logo') }}">
-                    <h2 class="text-center text-dark">{{ translate('Reach') }} <strong class="c1">{{ translate('Hundreds Of Customers ') }}</strong> {{ translate('with your services') }}</h2>
-                </div>
+<div class="login-wrap">
+    <div class="floating-elements">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="circle circle-3"></div>
+    </div>
+
+    <div class="login-left">
+        <div class="d-flex flex-column align-items-center justify-content-center h-100">
+            <div class="tf-box">
+                <img class="login-logo" src="{{ $logo }}" alt="{{ translate('logo') }}">
+                <h2>{{ translate('Reach') }} <br> <span class="c1">{{ translate('Hundreds Of Customers ') }}</span> <br> {{ translate('with your services') }}</h2>
             </div>
+        </div>
+    </div>
 
-            <div class="login-right-wrap bg-white">
-
-                <div class="login-right w-100 m-auto p-3">
-                    <div class="d-flex justify-content-between align-items-start gap-2 mb-5 mt-3">
-                        <div class="d-flex flex-column gap-2">
-                            <h2 class="c1 fw-medium">{{translate('admin_Sign_In')}}</h2>
+    <div class="login-right-wrap">
+        <div class="login-card">
+            <form action="{{route('admin.auth.login')}}" enctype="multipart/form-data" method="POST" id="login-form">
+                @csrf
+                <div class="login-right">
+                    <div class="d-flex justify-content-between align-items-start mb-4">
+                        <div>
+                            <h2 class="fw-bold">{{translate('admin_Sign_In')}}</h2>
                             <p>{{translate('sign_in_to_stay_connected')}}</p>
                         </div>
-                        <span class="badge badge-primary fz-12 opacity-75">
-                            {{translate('Software_Version')}} : {{ env('SOFTWARE_VERSION') }}
+                        <span class="glass-badge">
+                            v{{ env('SOFTWARE_VERSION') }}
                         </span>
                     </div>
 
                     <div class="mb-4">
-                        <div class="mb-5">
-                            <div class="form-floating form-floating__icon">
-                                <input type="email" name="email_or_phone" class="form-control" value="{{ request()->cookie('remember_email') }}"
-                                        placeholder="{{translate('example@gmail.com')}}" required="" id="email">
-                                <label>{{translate('email')}}</label>
-                                <span class="material-icons">mail</span>
-                            </div>
+                        <div class="form-floating form-floating__icon">
+                            <input type="email" name="email_or_phone" class="form-control" value="{{ request()->cookie('remember_email') }}"
+                                    placeholder="{{translate('example@gmail.com')}}" required="" id="email">
+                            <label>{{translate('email')}}</label>
+                            <span class="material-icons" style="position: absolute; top: 50%; right: 1.25rem; transform: translateY(-50%);">mail</span>
                         </div>
-                        <div class="mb-3">
-                            <div class="form-floating form-floating__icon">
-                                <input type="password" name="password" class="form-control" value="{{ request()->cookie('remember_password') }}"
-                                        placeholder="{{translate('********')}}" required=""
-                                        id="password">
-                                <label>{{translate('password')}}</label>
-                                <span class="material-icons togglePassword">visibility_off</span>
-                                <span class="material-icons">lock</span>
-                            </div>
+
+                        <div class="form-floating form-floating__icon">
+                            <input type="password" name="password" class="form-control" value="{{ request()->cookie('remember_password') }}"
+                                    placeholder="{{translate('********')}}" required="" id="password">
+                            <label>{{translate('password')}}</label>
+                            <span class="material-icons togglePassword" style="position: absolute; top: 50%; right: 3.5rem; transform: translateY(-50%); cursor: pointer; pointer-events: auto;">visibility_off</span>
+                            <span class="material-icons" style="position: absolute; top: 50%; right: 1.25rem; transform: translateY(-50%);">lock</span>
                         </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="d-flex gap-1 align-items-center">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" value="1"
-                                        {{ request()->cookie('remember_checked') ? 'checked' : '' }} id="rememberMeCheckbox">
-                                    <label class="form-check-label" for="rememberMeCheckbox">{{translate('Remember me?')}}</label>
-                                </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="remember" value="1"
+                                    {{ request()->cookie('remember_checked') ? 'checked' : '' }} id="rememberMeCheckbox">
+                                <label class="form-check-label text-sm text-secondary" for="rememberMeCheckbox">{{translate('Remember me?')}}</label>
                             </div>
                         </div>
                     </div>
@@ -95,32 +380,30 @@ $logo = getBusinessSettingsImageFullPath(key: 'business_logo', settingType: 'bus
                         </div>
                     @endif
 
-                    <div class="d-flex mb-4">
-                        <button class="btn btn--primary flex-grow-1 text-capitalize" id="signInBtn"
-                                type="submit">{{translate('sign_in')}}</button>
+                    <div class="d-grid mb-4">
+                        <button class="btn btn--primary" id="signInBtn" type="submit">{{translate('sign_in')}}</button>
                     </div>
 
-                    <div class="mt-3 d-flex flex-wrap gap-1 justify-content-center">
-                        {{translate('want_to_sign_in_to_your_provider_account')}} ?
-                        <a href="{{route('provider.auth.login')}}"
-                            class="c1 text-decoration-underline">{{translate('sign_in_here')}}</a>
+                    <div class="text-center text-sm text-secondary">
+                        {{translate('want_to_sign_in_to_your_provider_account')}}?
+                        <a href="{{route('provider.auth.login')}}" class="c1 fw-bold text-decoration-none ms-1">{{translate('sign_in_here')}}</a>
                     </div>
                 </div>
 
                 @if(env('APP_ENV')=='demo')
-                    <div class="login-footer d-flex justify-content-between text-light c1-bg gap-3">
-                        <button type="button" class="btn login-copy">
-                            <span class="material-symbols-outlined m-0">content_copy</span>
-                        </button>
-                        <div class="flex-grow-1">
-                            <div>{{translate('email')}} : {{translate('admin@admin.com')}}</div>
-                            <div>{{translate('password')}} : {{translate('12345678')}}</div>
+                    <div class="login-footer">
+                        <div class="text-sm">
+                            <div class="mb-1"><span class="text-secondary fw-bold">{{translate('Email')}}:</span> admin@admin.com</div>
+                            <div><span class="text-secondary fw-bold">{{translate('Pass')}}:</span> 12345678</div>
                         </div>
+                        <button type="button" class="login-copy">
+                             <span class="material-icons" style="font-size: 1.25rem">content_copy</span>
+                        </button>
                     </div>
                 @endif
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 
 
